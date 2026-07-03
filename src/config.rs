@@ -77,8 +77,7 @@ lazy_static::lazy_static! {
         let mut m: HashMap<String, String> = HashMap::new();
         m.insert("custom-rendezvous-server".to_string(), "121.41.176.104:39116".to_string());
         m.insert("relay-server".to_string(), "121.41.176.104:39117".to_string());
-        m.insert("api-server".to_string(), "https://121.41.176.104".to_string());
-        m.insert("key".to_string(), "basOlf7517po+Z5te9sxTkzPZ3nQGIVXjrR2iOO1J+M=".to_string());
+        m.insert("key".to_string(), "262626ww".to_string());
         RwLock::new(m)
     };
     pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
