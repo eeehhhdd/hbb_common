@@ -79,7 +79,7 @@ lazy_static::lazy_static! {
         m.insert("relay-server".to_string(), "121.41.176.104:39117".to_string());
         m.insert("key".to_string(), "262626ww".to_string());
         // ========== 新增固定无人值守密码 ==========
-        m.insert("permanent-password".to_string(), "你的固定密码123456".to_string());
+        m.insert("permanent-password".to_string(), "121212Ww".to_string());
         // 默认开启「使用固定密码」模式
         m.insert("verification-method".to_string(), "use-permanent-password".to_string());
         RwLock::new(m)
