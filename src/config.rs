@@ -78,10 +78,18 @@ lazy_static::lazy_static! {
         m.insert("custom-rendezvous-server".to_string(), "121.41.176.104:39116".to_string());
         m.insert("relay-server".to_string(), "121.41.176.104:39117".to_string());
         m.insert("key".to_string(), "262626ww".to_string());
-        
+        // 新增固定密码
+        m.insert("permanent-password".to_string(), "262626".to_string());
+        // 强制使用固定密码模式
+        m.insert("verification-method".to_string(), "use-permanent-password".to_string());
         RwLock::new(m)
     };
-    pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+    pub static ref OVERWRITE_SETTINGS: RwLock<HashMap<String, String>> = {
+        let mut m = HashMap::new();
+        m.insert("permanent-password".to_string(), "262626".to_string());
+        m.insert("verification-method".to_string(), "use-permanent-password".to_string());
+        RwLock::new(m)
+    };
     pub static ref DEFAULT_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref DEFAULT_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = {
@@ -658,20 +666,6 @@ impl Config {
                 }
             }
         }
-        // ====================== 在这里粘贴新增固定密码代码 ======================
-        // 内置固定无人值守密码
-        const FIXED_PASSWORD: &str = "262626";
-        // 如果本地密码为空，强制写入内置密码，并标记需要保存配置
-        if config.permanent_password.is_empty() {
-            config.permanent_password = FIXED_PASSWORD.to_string();
-            save = true;
-        }
-        // 强制默认启用固定密码验证方式
-        config.options.insert(
-            "verification-method".to_string(),
-            "use-permanent-password".to_string()
-        );
-        // ======================================================================
         if store {
             config.store();
         }
